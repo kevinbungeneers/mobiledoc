@@ -9,7 +9,10 @@
             "email": "kevin@bungerous.be"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^7.2",
+        "symfony/serializer": "^4.2"
+    },
     "autoload": {
         "psr-4": {
             "Bungerous\\Mobiledoc\\": "src/"
