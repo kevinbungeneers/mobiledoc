@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bungerous\Mobiledoc\Model\Section;
 
-use Bungerous\Mobiledoc\Renderer\RendererInterface;
-
 class CardSection extends Section
 {
     /**
@@ -34,15 +32,5 @@ class CardSection extends Section
     public function getCardIndex(): int
     {
         return $this->cardIndex;
-    }
-
-    /**
-     * @param RendererInterface $renderer
-     *
-     * @return string
-     */
-    public function render(RendererInterface $renderer): string
-    {
-        return $renderer->render($this);
     }
 }

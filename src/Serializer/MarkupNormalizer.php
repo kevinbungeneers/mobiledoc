@@ -43,7 +43,8 @@ class MarkupNormalizer implements NormalizerInterface, DenormalizerInterface
             $chunkedAttrs = array_chunk($data[1], 2);
             foreach ($chunkedAttrs as $chunk) {
                 list($key, $value) = $chunk;
-                $attributes[] = [$key => $value];
+//                $attributes[] = [$key => $value];
+                $attributes[$key] = $value;
             }
         }
 

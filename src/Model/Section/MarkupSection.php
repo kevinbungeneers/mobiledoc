@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bungerous\Mobiledoc\Model\Section;
 
 use Bungerous\Mobiledoc\Model\Marker\Marker;
-use Bungerous\Mobiledoc\Renderer\RendererInterface;
 
 class MarkupSection extends Section
 {
@@ -32,20 +31,26 @@ class MarkupSection extends Section
     }
 
     /**
+     * @return string
+     */
+    public function getTagName(): string
+    {
+        return $this->tagName;
+    }
+
+    /**
+     * @return array|Marker[]
+     */
+    public function getMarkers()
+    {
+        return $this->markers;
+    }
+
+    /**
      * @return int
      */
     public function getTypeIdentifier(): int
     {
         return Section::TYPE_MARKUP;
-    }
-
-    /**
-     * @param RendererInterface $renderer
-     *
-     * @return string
-     */
-    public function render(RendererInterface $renderer): string
-    {
-        return $renderer->render($this);
     }
 }

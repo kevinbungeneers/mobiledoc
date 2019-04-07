@@ -55,7 +55,7 @@ class Document implements RenderableInterface
      */
     public function render(RendererInterface $renderer): string
     {
-        return $renderer->render($this);
+        return $renderer->renderDocument($this);
     }
 
     /**

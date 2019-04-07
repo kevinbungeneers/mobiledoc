@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Bungerous\Mobiledoc\Model;
 
-use Bungerous\Mobiledoc\Renderer\RendererInterface;
-
-class Card implements RenderableInterface
+class Card
 {
     /**
      * @var string
@@ -28,15 +26,5 @@ class Card implements RenderableInterface
     {
         $this->name = $name;
         $this->payload = $payload;
-    }
-
-    /**
-     * @param RendererInterface $renderer
-     *
-     * @return string
-     */
-    public function render(RendererInterface $renderer): string
-    {
-        return $renderer->render($this);
     }
 }

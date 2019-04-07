@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Bungerous\Mobiledoc\Model\Marker;
 
-use Bungerous\Mobiledoc\Model\RenderableInterface;
-
-abstract class Marker implements RenderableInterface
+abstract class Marker
 {
     const TYPE_TEXT = 0;
     const TYPE_ATOM = 1;
@@ -39,6 +37,29 @@ abstract class Marker implements RenderableInterface
         $this->value = $value;
     }
 
+    /**
+     * @return array
+     */
+    public function getOpenMarkupsIndexes(): array
+    {
+        return $this->openMarkupsIndexes;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfClosedMarkups(): int
+    {
+        return $this->numberOfClosedMarkups;
+    }
+
+    /**
+     * @return int|string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
     /**
      * @return int

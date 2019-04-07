@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Bungerous\Mobiledoc\Model\Section;
 
-use Bungerous\Mobiledoc\Renderer\RendererInterface;
-
 class ImageSection extends Section
 {
     /**
@@ -29,15 +27,5 @@ class ImageSection extends Section
     public function getTypeIdentifier(): int
     {
         return Section::TYPE_IMAGE;
-    }
-
-    /**
-     * @param RendererInterface $renderer
-     *
-     * @return string
-     */
-    public function render(RendererInterface $renderer): string
-    {
-        return $renderer->render($this);
     }
 }

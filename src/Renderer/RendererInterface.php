@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Bungerous\Mobiledoc\Renderer;
 
-use Bungerous\Mobiledoc\Model\RenderableInterface;
+use Bungerous\Mobiledoc\Model\Document;
 
 interface RendererInterface
 {
-    public function render(RenderableInterface $renderable): string;
+    public function renderDocument(Document $document): string;
 }

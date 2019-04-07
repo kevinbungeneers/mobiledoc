@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bungerous\Mobiledoc\Model;
 
-use Bungerous\Mobiledoc\Renderer\RendererInterface;
-
-class Markup implements RenderableInterface
+class Markup
 {
     /**
      * @var string
@@ -15,7 +15,6 @@ class Markup implements RenderableInterface
      * @var array
      */
     private $attributes;
-
 
     /**
      * Markup constructor.
@@ -29,12 +28,18 @@ class Markup implements RenderableInterface
     }
 
     /**
-     * @param RendererInterface $renderer
-     *
      * @return string
      */
-    public function render(RendererInterface $renderer): string
+    public function getTagName(): string
     {
-        // TODO: Implement render() method.
+        return $this->tagName;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 }

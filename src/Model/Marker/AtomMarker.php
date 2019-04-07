@@ -13,14 +13,4 @@ class AtomMarker extends Marker
     {
         return Marker::TYPE_ATOM;
     }
-
-    /**
-     * @param RendererInterface $renderer
-     *
-     * @return string
-     */
-    public function render(RendererInterface $renderer): string
-    {
-        return $renderer->render($this);
-    }
 }

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Bungerous\Mobiledoc\Model\Section;
 
-use Bungerous\Mobiledoc\Model\RenderableInterface;
-
-abstract class Section implements RenderableInterface
+abstract class Section
 {
     const TYPE_MARKUP =  1;
     const TYPE_IMAGE  =  2;

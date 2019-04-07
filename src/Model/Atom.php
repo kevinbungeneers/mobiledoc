@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Bungerous\Mobiledoc\Model;
 
-use Bungerous\Mobiledoc\Renderer\RendererInterface;
-
-class Atom implements RenderableInterface
+class Atom
 {
     /**
      * @var string
@@ -35,15 +33,5 @@ class Atom implements RenderableInterface
         $this->name = $name;
         $this->value = $value;
         $this->payload = $payload;
-    }
-
-    /**
-     * @param RendererInterface $renderer
-     *
-     * @return string
-     */
-    public function render(RendererInterface $renderer): string
-    {
-        return $renderer->render($this);
     }
 }
