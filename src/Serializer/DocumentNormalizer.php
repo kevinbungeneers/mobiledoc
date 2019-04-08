@@ -58,6 +58,7 @@ class DocumentNormalizer implements NormalizerInterface, DenormalizerInterface, 
     public function denormalize($data, $class, $format = null, array $context = [])
     {
         $defaults = [
+            'version' => Document::VERSION,
             'markups' => [],
             'atoms' => [],
             'cards' => [],
@@ -80,6 +81,10 @@ class DocumentNormalizer implements NormalizerInterface, DenormalizerInterface, 
 
                 case 'sections' === $type:
                     $defaults[$type] = $this->denormalizeSections($list, $format, $context);
+                    break;
+
+                case 'version' === $type:
+                    $defaults[$type] = $list;
                     break;
 
                 default:
