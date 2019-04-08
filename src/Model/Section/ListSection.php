@@ -39,7 +39,7 @@ class ListSection extends Section
     }
 
     /**
-     * @return array|Marker[]
+     * @return array|Marker[][]
      */
     public function getMarkers()
     {

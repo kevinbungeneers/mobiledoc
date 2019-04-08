@@ -9,4 +9,6 @@ use Bungerous\Mobiledoc\Model\Document;
 interface RendererInterface
 {
     public function renderDocument(Document $document): string;
+
+    public function supports(string $format): bool;
 }

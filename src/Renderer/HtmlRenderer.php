@@ -2,6 +2,8 @@
 
 namespace Bungerous\Mobiledoc\Renderer;
 
+use Bungerous\Mobiledoc\Exception\UnsupportedCardException;
+use Bungerous\Mobiledoc\Model\Card;
 use Bungerous\Mobiledoc\Model\Document;
 use Bungerous\Mobiledoc\Model\Marker\Marker;
 use Bungerous\Mobiledoc\Model\Markup;
@@ -12,15 +14,26 @@ use Bungerous\Mobiledoc\Model\Section\MarkupSection;
 
 class HtmlRenderer implements RendererInterface
 {
+    const FORMAT = 'html';
+
     /**
      * @var array
      */
     private $tagStack = [];
 
     /**
-     * @var array
+     * @var array|CardRendererInterface[]
      */
     private $cardRenderers;
+
+    /**
+     * HtmlRenderer constructor.
+     * @param array $cardRenderers
+     */
+    public function __construct($cardRenderers = [])
+    {
+        $this->cardRenderers = $cardRenderers;
+    }
 
     public function renderDocument(Document $document): string
     {
@@ -52,6 +65,11 @@ class HtmlRenderer implements RendererInterface
         return implode('', $renderedSections);
     }
 
+    public function addCardRenderer(CardRendererInterface $cardRenderer): void
+    {
+        $this->cardRenderers[] = $cardRenderer;
+    }
+
     private function renderMarkupSection(MarkupSection $section, array $markups): string
     {
         return "<{$section->getTagName()}>{$this->renderMarkers($section->getMarkers(), $markups)}</{$section->getTagName()}>";
@@ -59,7 +77,7 @@ class HtmlRenderer implements RendererInterface
 
     private function renderImageSection(ImageSection $section): string
     {
-        return '';
+        return '<img src="' . $section->getImageSource() . '">';
     }
 
     private function renderListSection(ListSection $section, array $markups): string
@@ -81,8 +99,27 @@ class HtmlRenderer implements RendererInterface
 
     private function renderCardSection(CardSection $section, array $cards): string
     {
-        dump($cards[$section->getCardIndex()]);
-        exit;
+        $card = $cards[$section->getCardIndex()];
+        $cardRenderer = $this->getCardRenderer($card);
+
+        if (!$cardRenderer instanceof CardRendererInterface) {
+            throw new UnsupportedCardException(sprintf('No card renderer found for card "%s"', $card->getName()));
+        }
+
+        return $cardRenderer->render($card);
+    }
+
+    private function getCardRenderer(Card $card): ?CardRendererInterface
+    {
+        foreach ($this->cardRenderers as $cardRenderer) {
+            if (!$cardRenderer->supports($card->getName(), self::FORMAT)) {
+                continue;
+            }
+
+            return $cardRenderer;
+        }
+
+        return null;
     }
 
     private function renderMarkers(array $markers, array $markups): string
@@ -126,5 +163,10 @@ class HtmlRenderer implements RendererInterface
         }
 
         return implode('', $openingTags) . $marker->getValue() . implode('', $closingTags);
+    }
+
+    public function supports(string $format): bool
+    {
+        return self::FORMAT === $format;
     }
 }

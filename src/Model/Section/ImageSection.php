@@ -22,6 +22,14 @@ class ImageSection extends Section
     }
 
     /**
+     * @return string
+     */
+    public function getImageSource(): string
+    {
+        return $this->imageSource;
+    }
+
+    /**
      * @return int
      */
     public function getTypeIdentifier(): int

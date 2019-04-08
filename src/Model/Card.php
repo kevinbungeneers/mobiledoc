@@ -27,4 +27,20 @@ class Card
         $this->name = $name;
         $this->payload = $payload;
     }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPayload(): array
+    {
+        return $this->payload;
+    }
 }
