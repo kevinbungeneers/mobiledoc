@@ -32,20 +32,17 @@ class SerializerTest extends TestCase
             new MarkerNormalizer(),
         ];
 
-        $file = __DIR__ . "/fixtures/simple_document.json";
+        $inputFile = __DIR__ . "/fixtures/simple_document.json";
+        $expectedOutputFile =  __DIR__ . "/fixtures/simple_document.html";
 
         $serializer = new Serializer($normalizers, $encoders);
         $renderer = new HtmlRenderer();
 
+        $document = $serializer->deserialize(file_get_contents($inputFile), Document::class,'mobiledoc', []);
 
-
-        try {
-            $document = $serializer->deserialize(file_get_contents($file), Document::class,'mobiledoc', []);
-            dump($document->render($renderer));
-        } catch (\Exception $e) {
-            dump('oei');
-            dump($e);
-            exit;
-        }
+        $this->assertEquals(
+            file_get_contents($expectedOutputFile),
+            $document->render($renderer)
+        );
     }
 }
